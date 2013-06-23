@@ -54,7 +54,7 @@ make -DBATCH install clean
 mkdir /home/vagrant/.ssh
 chmod 700 /home/vagrant/.ssh
 cd /home/vagrant/.ssh
-fetch -am 'https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub' -o authorized_keys
+fetch -amo authorized_keys 'https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub'
 chown -R vagrant /home/vagrant/.ssh
 chmod -R go-rwsx /home/vagrant/.ssh
 
