@@ -34,17 +34,17 @@ EOT
 # build packages for sudo and bash
 pkg_delete -af
 cd /usr/ports/security/sudo
-make -DBATCH package-recursive clean
-cd /usr/ports/shells/bash-static
-make -DBATCH package clean
+make -DBATCH install clean
+cd /usr/ports/shells/bash
+make -DBATCH install clean
 
 #Off to rubygems to get first ruby running
 cd /usr/ports/devel/ruby-gems
-make install -DBATCH
+make -DBATCH install clean
 
 #Need ruby iconv in order for chef to run
 cd /usr/ports/converters/ruby-iconv
-make install -DBATCH
+make -DBATCH install clean
 
 #Installing chef & Puppet
 /usr/local/bin/gem install chef --no-ri --no-rdoc
@@ -54,16 +54,9 @@ make install -DBATCH
 mkdir /home/vagrant/.ssh
 chmod 700 /home/vagrant/.ssh
 cd /home/vagrant/.ssh
-fetch -am 'https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub' -O authorized_keys
+fetch -am 'https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub' -o authorized_keys
 chown -R vagrant /home/vagrant/.ssh
 chmod -R go-rwsx /home/vagrant/.ssh
-
-# Cleaning portstree to save space
-# http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/ports-using.html
-cd /usr/ports/ports-mgmt/portupgrade
-make install -DBATCH clean
-
-/usr/local/sbin/portsclean -C
 
 # As sharedfolders are not in defaults ports tree
 # We will use vagrant via NFS
@@ -77,17 +70,13 @@ echo "vagrant ALL=(ALL) NOPASSWD: ALL" >> /usr/local/etc/sudoers
 # Restore correct su permissions
 # I'll leave that up to the reader :)
 
-cd /usr/ports/devel/libtool
-make clean
-make install -DBATCH
-
 # disable X11 because vagrants are (usually) headless
 cat >> /etc/make.conf << EOT
 WITHOUT_X11="YES"
 EOT
 
 cd /usr/ports/emulators/virtualbox-ose-additions
-make -DBATCH package clean
+make -DBATCH install clean
 
 # undo our customizations
 sed -i '' -e '/^REFUSE /d' /etc/portsnap.conf
