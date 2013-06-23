@@ -48,6 +48,7 @@ chmod 1777 /mnt/var/tmp
 zfs create -V 2G zroot/swap
 zfs set org.freebsd:swap=on zroot/swap
 zfs set checksum=off zroot/swap
+swapon /dev/zvol/zroot/swap
 
 # Install the OS
 cd /usr/freebsd-dist
@@ -76,6 +77,9 @@ vm.kmem_size_max="200M"
 vfs.zfs.arc_max="40M"
 vfs.zfs.vdev.cache.size="5M"
 EOT
+
+# Create empty fstab
+echo -e '# Device\t\tMountpoint\tFStype\tOptions\tDump\Pass#' > /mnt/etc/fstab
 
 # Install a few requirements
 echo 'nameserver 8.8.8.8' > /mnt/etc/resolv.conf
