@@ -77,9 +77,6 @@ vfs.zfs.arc_max="40M"
 vfs.zfs.vdev.cache.size="5M"
 EOT
 
-# Enable swap
-echo '/dev/gpt/swap0 none swap sw 0 0' > /mnt/etc/fstab
-
 # Install a few requirements
 echo 'nameserver 8.8.8.8' > /mnt/etc/resolv.conf
 
