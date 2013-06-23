@@ -51,10 +51,10 @@ zfs set checksum=off zroot/swap
 
 # Install the OS
 cd /usr/freebsd-dist
-cat base.txz | tar --unlink -xpJf - -C /mnt
-cat lib32.txz | tar --unlink -xpJf - -C /mnt
-cat kernel.txz | tar --unlink -xpJf - -C /mnt
-cat src.txz | tar --unlink -xpJf - -C /mnt
+tar --unlink -xvpf base.txz -C /mnt
+tar --unlink -xvpf lib32.txz -C /mnt
+tar --unlink -xvpf kernel.txz -C /mnt
+tar --unlink -xvpf src.txz -C /mnt
 
 cp /tmp/zpool.cache /mnt/boot/zfs/zpool.cache
 
