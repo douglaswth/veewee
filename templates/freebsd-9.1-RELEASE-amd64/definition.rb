@@ -25,7 +25,7 @@ Veewee::Definition.declare({
   :kickstart_port => "7122", :kickstart_timeout => "10000", :kickstart_file => "install.sh",
   :ssh_login_timeout => "10000", :ssh_user => "vagrant", :ssh_password => "vagrant", :ssh_key => "",
   :ssh_host_port => "7222", :ssh_guest_port => "22",
-  :sudo_cmd => "cat '%f' | su -",
+  :sudo_cmd => "echo 'sh %f' | su -m",
   :shutdown_cmd => "shutdown -p now",
   :postinstall_files => [ "postinstall.sh"], :postinstall_timeout => "10000"
 })
